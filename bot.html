@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Page Title</title>
 </head>
 <body>
 
-<h1>Chatbot Agentforce test</h1>
+<body>
+  <h1>Salesforce Embedded Messaging – MembershipNumber tester</h1>
+  <p>Enter Membership number to preload in the chat.</p>
+
+  <label for="membershipInput">Membership Number:</label>
+  <input type="text" id="membershipInput" value="9897960067" />
+  <button id="loadButton" onclick="initEmbeddedMessaging()">Load Chatbot</button>
+
 
 <script type='text/javascript'>
+	  const loadButton = document.getElementById('loadButton');
+      const membershipNumber = document.getElementById('membershipInput').value;
+
 	function initEmbeddedMessaging() {
 		try {
 			embeddedservice_bootstrap.settings.language = 'en_US';            
@@ -33,7 +42,7 @@
 		}
 	};
 </script>
-<script type='text/javascript' src='https://collinsonlifestyle2023--cdc.sandbox.my.site.com/ESWGitHubTest1752671269272/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+<script type='text/javascript' src='https://collinsonlifestyle2023--cdc.sandbox.my.site.com/ESWGitHubTest1752671269272/assets/js/bootstrap.min.js'></script>
 
 </body>
 </html>
