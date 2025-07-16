@@ -6,25 +6,22 @@
 </head>
 <body>
   <h1>Salesforce Embedded Messaging – MembershipNumber tester</h1>
-  <p>Zadej své Membership číslo a klikni na tlačítko pro načtení chatbota s touto hodnotou.</p>
+  <p>Enter Membership number to preload in the chat.</p>
 
   <label for="membershipInput">Membership Number:</label>
   <input type="text" id="membershipInput" value="9897960067" />
-  <button onclick="reloadBot()">Načíst chatbot</button>
+  <button onclick="reloadBot()">Reload Chatbot</button>
 
   <script type="text/javascript">
     let currentScriptTag;
 
     function reloadBot() {
-      // Pokud už bylo jednou načteno, odstraň skript
       if (currentScriptTag) {
         currentScriptTag.remove();
       }
 
-      // Vezmi aktuální membership number z inputu
       const membershipNumber = document.getElementById('membershipInput').value;
 
-      // Při načtení čekej na onEmbeddedMessagingReady
       window.onEmbeddedMessagingReady = () => {
         embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
           "MembershipNumber": membershipNumber
@@ -37,7 +34,7 @@
         embeddedservice_bootstrap.init(
           '00DQz000004pGwT',
           'Chatbot',
-          'https://collinsonlifestyle2023--cdc.sandbox.my.site.com/ESWChatbot1752568267734',
+          'https://collinsonlifestyle2023--cdc.sandbox.my.site.com/ESWGitHubTest1752671269272',
           {
             scrt2URL: 'https://collinsonlifestyle2023--cdc.sandbox.my.salesforce-scrt.com'
           }
@@ -46,14 +43,12 @@
         console.error('Error loading Embedded Messaging:', err);
       }
 
-      // Načti znovu skript pro Bootstrap (vytvoří se nový tag)
       currentScriptTag = document.createElement('script');
       currentScriptTag.type = 'text/javascript';
-      currentScriptTag.src = 'https://collinsonlifestyle2023--cdc.sandbox.my.site.com/ESWChatbot1752568267734/assets/js/bootstrap.min.js';
+      currentScriptTag.src = 'https://collinsonlifestyle2023--cdc.sandbox.my.site.com/ESWGitHubTest1752671269272/assets/js/bootstrap.min.js';
       document.body.appendChild(currentScriptTag);
     }
 
-    // Spustíme poprvé s výchozí hodnotou
     window.onload = reloadBot;
   </script>
 </body>
