@@ -17,15 +17,21 @@
       const loadButton = document.getElementById('loadButton');
       const membershipNumber = document.getElementById('membershipInput').value;
 
-      window.onEmbeddedMessagingReady = () => {
-        embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
-          "MembershipNumber": membershipNumber
-        });
-      };
+
 
       try {
         embeddedservice_bootstrap.settings.language = 'en_US';
 
+
+              window.addEventListener("onEmbeddedMessagingReady", () => {
+
+                // Send data to Salesforce
+                embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
+                "MembershipNumber" : "9897960067",
+                });
+              });      
+
+        
         embeddedservice_bootstrap.init(
           '00DQz000004pGwT',
           'Chatbot',
