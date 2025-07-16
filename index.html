@@ -13,40 +13,22 @@
   <button onclick="reloadBot()">Reload Chatbot</button>
 
   <script type="text/javascript">
-    let firstLoad = true;
-
-    function destroyEmbeddedMessaging() {
-      // Remove existing iframe and wrapper if they exist
-      const iframe = document.querySelector('iframe.embeddedMessagingIframe');
-      if (iframe) iframe.remove();
-
-      const wrapper = document.getElementById('embedded-messaging-frame');
-      if (wrapper) wrapper.remove();
-
-      // Clear bootstrap object to allow re-initialization
-      window.embeddedservice_bootstrap = undefined;
-    }
+    let currentScriptTag;
 
     function reloadBot() {
-      const membershipNumber = document.getElementById('membershipInput').value;
-
-      if (!firstLoad) {
-        destroyEmbeddedMessaging();
-      } else {
-        firstLoad = false;
+      if (currentScriptTag) {
+        currentScriptTag.remove();
       }
 
-      // Dynamically load the Salesforce embedded messaging script
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = 'https://collinsonlifestyle2023--cdc.sandbox.my.site.com/ESWGitHubTest1752671269272/assets/js/bootstrap.min.js';
-      script.onload = () => {
-        window.addEventListener("onEmbeddedMessagingReady", () => {
-          embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
-            "MembershipNumber": membershipNumber
-          });
-        });
+      const membershipNumber = document.getElementById('membershipInput').value;
 
+      window.onEmbeddedMessagingReady = () => {
+        embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
+          "MembershipNumber": membershipNumber
+        });
+      };
+
+      try {
         embeddedservice_bootstrap.settings.language = 'en_US';
 
         embeddedservice_bootstrap.init(
@@ -57,8 +39,14 @@
             scrt2URL: 'https://collinsonlifestyle2023--cdc.sandbox.my.salesforce-scrt.com'
           }
         );
-      };
-      document.body.appendChild(script);
+      } catch (err) {
+        console.error('Error loading Embedded Messaging:', err);
+      }
+
+      currentScriptTag = document.createElement('script');
+      currentScriptTag.type = 'text/javascript';
+      currentScriptTag.src = 'https://collinsonlifestyle2023--cdc.sandbox.my.site.com/ESWGitHubTest1752671269272/assets/js/bootstrap.min.js';
+      document.body.appendChild(currentScriptTag);
     }
 
     window.onload = reloadBot;
