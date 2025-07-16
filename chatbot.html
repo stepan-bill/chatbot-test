@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Salesforce Chatbot Tester</title>
+</head>
+<body>
+  <h1>Salesforce Embedded Messaging – MembershipNumber tester</h1>
+  <p>Zadej své Membership číslo a klikni na tlačítko pro načtení chatbota s touto hodnotou.</p>
+
+  <label for="membershipInput">Membership Number:</label>
+  <input type="text" id="membershipInput" value="9897960067" />
+  <button onclick="reloadBot()">Načíst chatbot</button>
+
+  <script type="text/javascript">
+    let currentScriptTag;
+
+    function reloadBot() {
+      // Pokud už bylo jednou načteno, odstraň skript
+      if (currentScriptTag) {
+        currentScriptTag.remove();
+      }
+
+      // Vezmi aktuální membership number z inputu
+      const membershipNumber = document.getElementById('membershipInput').value;
+
+      // Při načtení čekej na onEmbeddedMessagingReady
+      window.onEmbeddedMessagingReady = () => {
+        embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
+          "MembershipNumber": membershipNumber
+        });
+      };
+
+      try {
+        embeddedservice_bootstrap.settings.language = 'en_US';
+
+        embeddedservice_bootstrap.init(
+          '00DQz000004pGwT',
+          'Chatbot',
+          'https://collinsonlifestyle2023--cdc.sandbox.my.site.com/ESWChatbot1752568267734',
+          {
+            scrt2URL: 'https://collinsonlifestyle2023--cdc.sandbox.my.salesforce-scrt.com'
+          }
+        );
+      } catch (err) {
+        console.error('Error loading Embedded Messaging:', err);
+      }
+
+      // Načti znovu skript pro Bootstrap (vytvoří se nový tag)
+      currentScriptTag = document.createElement('script');
+      currentScriptTag.type = 'text/javascript';
+      currentScriptTag.src = 'https://collinsonlifestyle2023--cdc.sandbox.my.site.com/ESWChatbot1752568267734/assets/js/bootstrap.min.js';
+      document.body.appendChild(currentScriptTag);
+    }
+
+    // Spustíme poprvé s výchozí hodnotou
+    window.onload = reloadBot;
+  </script>
+</body>
+</html>
