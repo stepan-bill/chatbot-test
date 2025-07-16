@@ -10,16 +10,11 @@
 
   <label for="membershipInput">Membership Number:</label>
   <input type="text" id="membershipInput" value="9897960067" />
-  <button onclick="reloadBot()">Reload Chatbot</button>
+  <button id="loadButton" onclick="loadBot()">Load Chatbot</button>
 
   <script type="text/javascript">
-    let currentScriptTag;
-
-    function reloadBot() {
-      if (currentScriptTag) {
-        currentScriptTag.remove();
-      }
-
+    function loadBot() {
+      const loadButton = document.getElementById('loadButton');
       const membershipNumber = document.getElementById('membershipInput').value;
 
       window.onEmbeddedMessagingReady = () => {
@@ -39,17 +34,19 @@
             scrt2URL: 'https://collinsonlifestyle2023--cdc.sandbox.my.salesforce-scrt.com'
           }
         );
+
+        loadButton.disabled = true;
+        loadButton.innerText = 'Chatbot loaded';
+
       } catch (err) {
         console.error('Error loading Embedded Messaging:', err);
       }
 
-      currentScriptTag = document.createElement('script');
-      currentScriptTag.type = 'text/javascript';
-      currentScriptTag.src = 'https://collinsonlifestyle2023--cdc.sandbox.my.site.com/ESWGitHubTest1752671269272/assets/js/bootstrap.min.js';
-      document.body.appendChild(currentScriptTag);
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = 'https://collinsonlifestyle2023--cdc.sandbox.my.site.com/ESWGitHubTest1752671269272/assets/js/bootstrap.min.js';
+      document.body.appendChild(script);
     }
-
-    window.onload = reloadBot;
   </script>
 </body>
 </html>
