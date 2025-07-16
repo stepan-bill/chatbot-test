@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Title</title>
+</head>
+<body>
+
+<h1>Chatbot Agentforce test</h1>
+
+<script type='text/javascript'>
+	function initEmbeddedMessaging() {
+		try {
+			embeddedservice_bootstrap.settings.language = 'en_US';            
+
+              window.addEventListener("onEmbeddedMessagingReady", () => {
+
+                // Send data to Salesforce
+                embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
+                "MembershipNumber" : "9897960067",
+                });
+              });        
+        
+			embeddedservice_bootstrap.init(
+				'00DQz000004pGwT',
+				'W3School_Test',
+				'https://collinsonlifestyle2023--cdc.sandbox.my.site.com/ESWGitHubTest1752671269272',
+				{
+					scrt2URL: 'https://collinsonlifestyle2023--cdc.sandbox.my.salesforce-scrt.com'
+				}
+			);
+		} catch (err) {
+			console.error('Error loading Embedded Messaging: ', err);
+		}
+	};
+</script>
+<script type='text/javascript' src='https://collinsonlifestyle2023--cdc.sandbox.my.site.com/ESWGitHubTest1752671269272/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+
+</body>
+</html>
